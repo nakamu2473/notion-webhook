@@ -15,5 +15,5 @@ def record():
     print(f"受け取った: {name}, {taijyu}")
     return jsonify({"message": "受け取ったっちゃ！"}), 200
 
-    if __name__ == "__main__":
-        app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
