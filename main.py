@@ -1,7 +1,7 @@
+import os
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
-SECRET_TOKEN = "my-super-secret-token"  # ←好きな文字列を決めてここに！
 
 @app.route("/record", methods=["POST"])
 def record():
