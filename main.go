@@ -98,7 +98,7 @@ func sendToNotion(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-    err := godotenv.Load()
+    godotenv.Load()
 
 	port := os.Getenv("PORT")
 	if port == "" {
