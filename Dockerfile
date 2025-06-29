@@ -7,7 +7,7 @@ RUN go mod download
 
 COPY . .
 
-RUN go build -o server && chmod +x server
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o server . && chmod +x server
 
 FROM gcr.io/distroless/static-debian11
 COPY --from=build /app/server /server
