@@ -7,8 +7,8 @@ RUN go mod download
 
 COPY . .
 
-RUN go build -o server
+RUN go build -o server && chmod +x server
 
-FROM gcr.io/distroless/base-debian11
+FROM gcr.io/distroless/static-debian11
 COPY --from=build /app/server /server
 CMD ["/server"]
