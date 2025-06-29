@@ -1,14 +1,20 @@
-FROM golang:1.24 AS build
+FROM golang:1.21 AS builder
 
 WORKDIR /app
-COPY go.mod ./
-COPY go.sum ./
+COPY go.mod go.sum ./
 RUN go mod download
 
 COPY . .
+RUN go build -o main .
 
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o server . && chmod +x server
+# 本番用の軽量イメージにバイナリだけコピーする
+FROM gcr.io/distroless/base-debian11
 
-FROM gcr.io/distroless/static-debian11
-COPY --from=build /app/server /server
-CMD ["/server"]
+WORKDIR /
+COPY --from=builder /app/main /
+
+# Cloud Run は $PORT を自動で設定する
+ENV PORT=8080
+EXPOSE 8080
+
+CMD ["/main"]
