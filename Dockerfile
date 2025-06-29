@@ -1,18 +1,11 @@
-# ベースイメージ（Python 3.11）
-FROM python:3.11-slim
+FROM golang:1.21 AS build
 
-# 作業ディレクトリ作成
 WORKDIR /app
-
-# 依存関係ファイルをコピーしてインストール
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-# アプリのコードをコピー
 COPY . .
 
-# Cloud Runはポート8080で起動する必要があるっちゃ！
-ENV PORT=8080
+RUN go mod init notion-webhook && go mod tidy
+RUN go build -o server
 
-# アプリを起動
-CMD ["python", "main.py"]
+FROM gcr.io/distroless/base-debian11
+COPY --from=build /app/server /server
+CMD ["/server"]
