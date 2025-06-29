@@ -99,9 +99,6 @@ func sendToNotion(w http.ResponseWriter, r *http.Request) {
 
 func main() {
     err := godotenv.Load()
-    if err != nil {
-        log.Fatal("😱 .envファイルが読み込めなかったっちゃ…")
-    }
 
 	port := os.Getenv("PORT")
 	if port == "" {
