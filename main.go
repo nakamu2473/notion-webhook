@@ -98,7 +98,10 @@ func sendToNotion(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-    godotenv.Load()
+	// 開発環境だけ .env を読む
+	if os.Getenv("ENV") != "production" {
+		_ = godotenv.Load()
+	}
 
 	port := os.Getenv("PORT")
 	if port == "" {
