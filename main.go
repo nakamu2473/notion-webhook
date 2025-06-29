@@ -113,4 +113,5 @@ func main() {
 	mux.HandleFunc("/record", recordHandler)
 	mux.HandleFunc("/cat-weight", sendToNotion)
 	log.Fatal(http.ListenAndServe(":"+port, mux))
+	log.Printf("PORT: %s", port)
 }
