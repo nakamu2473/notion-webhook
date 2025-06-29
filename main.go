@@ -43,5 +43,7 @@ func main() {
 	}
 
 	log.Printf("Listening on port %s...", port)
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+	mux := http.NewServeMux()
+	mux.HandleFunc("/record", recordHandler)
+	log.Fatal(http.ListenAndServe(":"+port, mux))
 }
