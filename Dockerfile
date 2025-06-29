@@ -9,6 +9,8 @@ COPY . .
 
 RUN go build -o server
 
-FROM gcr.io/distroless/base-debian11
+#FROM gcr.io/distroless/base-debian11
+FROM debian:bullseye-slim
+
 COPY --from=build /app/server /server
 CMD ["/server"]
