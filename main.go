@@ -2,11 +2,9 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
-	"github.com/gorilla/mux"
 )
 
 type RequestBody struct {
