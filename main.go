@@ -98,7 +98,7 @@ func sendToNotion(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	fmt.Println("🚀 Main started")
+	log.Printf("🚀 Main started")
 	// 開発環境だけ .env を読む
 	if os.Getenv("ENV") != "production" {
 		_ = godotenv.Load()
